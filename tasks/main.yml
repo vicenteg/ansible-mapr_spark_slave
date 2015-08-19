@@ -31,5 +31,6 @@
 # - debug: msg="{{maprcli_volume.stdout_lines|map('trim')|list}}"
 
 - name: create a local volume for spark work directory
-  command: maprcli volume create -path /var/mapr/local/{{ansible_hostname}}/spark -replication 1 -minreplication 1 -name mapr.{{ansible_hostname}}.local.spark -createparent true
-  when: "maprcli_volume is defined and maprcli_volume.stdout.find('mapr.{{ansible_hostname}}.local.spark') == -1"
+  mapr_volume: name=mapr.{{ansible_hostname}}.local.spark path=/var/mapr/local/{{ansible_hostname}}/spark createparent=true replication=1 minreplication=1 localvolumehost={{ansible_hostname}}
+#  command: maprcli volume create -path /var/mapr/local/{{ansible_hostname}}/spark -replication 1 -minreplication 1 -name mapr.{{ansible_hostname}}.local.spark -createparent true
+#  when: "maprcli_volume is defined and maprcli_volume.stdout.find('mapr.{{ansible_hostname}}.local.spark') == -1"
