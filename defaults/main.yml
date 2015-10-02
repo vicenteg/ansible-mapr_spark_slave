@@ -1,6 +1,11 @@
 ---
 # defaults file for sparkslave
 spark_work_dir: /opt/mapr/spark/tmp
-spark_version: 1.3.1
-spark_enabled: False
 
+spark_version: 1.4.1
+spark_build: 201509021818
+spark_home: /opt/mapr/spark/spark-{{spark_version}}
+spark_enabled: False
+spark_volume_name: spark
+spark_volume_path: /apps/spark
+mapr_webserver: https://{{groups["webserver"]|first}}:8443
