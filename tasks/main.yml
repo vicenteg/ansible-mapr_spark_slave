@@ -19,20 +19,17 @@
   when: ansible_distribution in ("Debian", "Ubuntu")
   environment: proxy_env
 
+- name: create a volume for Spark
+  run_once: yes
+  sudo_user: '{{mapr_admin_username}}'
+  mapr_volume: name={{spark_volume_name}} path={{spark_volume_path}} state=present username={{mapr_admin_username}} password={{mapr_password_clear|default("mapr")}} mapr_webserver={{mapr_webserver}}
+
 - name: set spark work directory in spark configuration
   lineinfile: dest=/opt/mapr/spark/spark-{{spark_version}}/conf/spark-env.sh state=present regexp="^export SPARK_WORKER_DIR" line="export SPARK_WORKER_DIR={{spark_work_dir}}"
 
 - name: create a spark work directory
   sudo_user: root
   file: dest={{spark_work_dir}} owner={{mapr_admin_username}} group={{mapr_admin_username}} state=directory mode=0750
-
-#- name: check whether a local spark volume exists
-#  sudo_user: '{{mapr_admin_username}}'
-#  command: maprcli volume list -columns volumename -noheader
-#  ignore_errors: true
-#  register: maprcli_volume
-
-# - debug: msg="{{maprcli_volume.stdout_lines|map('trim')|list}}"
 
 - name: create a local volume for spark work directory
   mapr_volume: 
@@ -45,7 +42,3 @@
     localvolumehost: '{{ansible_hostname}}'
     mapr_webserver: '{{mapr_webserver}}'
     state: present
-
-#- name: create a local volume for spark work directory
-#  mapr_volume: name=mapr.{{ansible_hostname}}.local.spark path=/var/mapr/local/{{ansible_hostname}}/spark createparent=true replication=1 minreplication=1 localvolumehost={{ansible_hostname}} mapr_webserver={{mapr_webserver}}
-#  when: "maprcli_volume is defined and maprcli_volume.stdout.find('mapr.{{ansible_hostname}}.local.spark') == -1"
