@@ -1,8 +1,8 @@
 ---
 # defaults file for sparkslave
-spark_work_dir: /mapr/{{cluster_name}}/var/mapr/local/{{ansible_hostname}}/spark
+# spark_work_dir: /mapr/{{cluster_name}}/var/mapr/local/{{ansible_hostname}}/spark
 # for community edition
-# spark_work_dir: /opt/mapr/spark/tmp
+spark_work_dir: /opt/mapr/spark/tmp
 
 spark_version: 1.4.1
 spark_build: 201509021818
