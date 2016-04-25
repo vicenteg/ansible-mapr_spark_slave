@@ -34,11 +34,11 @@
 - name: create a local volume for spark work directory
   mapr_volume: 
   args:
-    name: mapr.{{ansible_hostname}}.local.spark
-    path: /var/mapr/local/{{ansible_hostname}}/spark
+    name: mapr.{{ansible_fqdn}}.local.spark
+    path: /var/mapr/local/{{ansible_fqdn}}/spark
     createparent: true
     replication: "1"
     minreplication: "1"
-    localvolumehost: '{{ansible_hostname}}'
+    localvolumehost: '{{ansible_fqdn}}'
     mapr_webserver: '{{mapr_webserver}}'
     state: present
