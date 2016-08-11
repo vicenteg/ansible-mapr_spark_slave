@@ -4,8 +4,8 @@
 # for community edition
 spark_work_dir: /opt/mapr/spark/tmp
 
-spark_version: 1.4.1
-spark_build: 201509021818
+spark_version: 1.6.1
+spark_build: "*"
 spark_home: /opt/mapr/spark/spark-{{spark_version}}
 spark_enabled: False
 spark_volume_name: spark
