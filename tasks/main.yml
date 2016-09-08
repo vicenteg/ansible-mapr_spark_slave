@@ -10,7 +10,6 @@
   with_items:
     - mapr-spark
   when: ansible_distribution in ("CentOS", "RedHat", "Amazon")
-  environment: '{{proxy_env}}'
 
 - name: install mapr-spark for Debian/Ubuntu
   become: yes
@@ -19,7 +18,6 @@
   with_items:
     - mapr-spark
   when: ansible_distribution in ("Debian", "Ubuntu")
-  environment: '{{proxy_env}}'
 
 - name: create a volume for Spark
   run_once: yes
